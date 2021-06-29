@@ -74,21 +74,10 @@ void load_dalvikvm_properties()
     property_override("dalvik.vm.heapminfree", "8m");
 }
 
-void vendor_load_properties()
-{
-    std::string region = android::base::GetProperty("ro.boot.hwc", "");
-
-    // correct model naming
-    if (region.find("CN") != std::string::npos ||
-        region.find("INDIA") != std::string::npos) {
-        property_override("ro.product.model", "Redmi K20 Pro");
-    } else {
-        property_override("ro.product.model", "Mi 9T Pro");
-    }
-
-    if (region.find("CN") != std::string::npos ||
-        region.find("GLOBAL") != std::string::npos)
-        property_override("ro.boot.product.hardware.sku", "raphael");
+void vendor_load_properties() {
+    set_ro_product_prop("device", "cepheus");
+    set_ro_product_prop("model", "MI 9");
+    set_ro_product_prop("name", "cepheus");
 
     // fingerprint
     property_override("ro.build.description", "coral-user 11 RQ3A.210605.005 7349499 release-keys");
